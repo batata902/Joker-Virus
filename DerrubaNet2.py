@@ -44,7 +44,7 @@ def autorun():
 def joker():
     nome = 'joker.bat'
     codigo_bat = '@echo off \nstart cmd \nstart calc'
-    with open(path, 'w') as j:
+    with open(nome, 'w') as j:
         j.write(codigo_bat)
         
     subprocess.run([nome], shell=True)
