@@ -91,8 +91,11 @@ def caixas_aleatorias(root, num_caixas):
 
 
 autorun()
-background()
-joker()
+try:
+    background()
+    joker()
+except PermissionError:
+    None
 root = tk.Tk()
 root.withdraw()  
 caixas_aleatorias(root, 100)
